@@ -72,7 +72,7 @@ const incomplete = (
 );
 
 const HabitItem = (props) => {
-  const { dispatch, removeHabitHandler } = useContext(HabitContext);
+  const { dispatch, removeHabitHandler, addDateHandler } = useContext(HabitContext);
 
   function habitClickHandler(e) {
     // SVG replacement
@@ -87,15 +87,18 @@ const HabitItem = (props) => {
       target.children[0].style.display = "block";
       target.children[1].style.display = "none";
     }
-    dispatch({ type: "ADD_DATE", date: target.dataset.date, id: props.id });
+    addDateHandler(target.dataset.date, props.id);
+    // dispatch({ type: "ADD_DATE", date: target.dataset.date, id: props.id });
   }
 
   // Create arrays of incomplete habit status markers for each habit and each date
-  const today = new Date();
+  // const today = new Date();
   const dateCheck = [];
   for (let i = 0; i < 5; i++) {
+    let tempDate = new Date();
+    tempDate.setDate(tempDate.getDate() - i)
     let keyId = `
-      ${today.getDate() - i}/${today.getMonth() + 1}/${today.getFullYear()}
+      ${tempDate.getDate()}/${tempDate.getMonth() + 1}/${tempDate.getFullYear()}
     `;
     dateCheck.push(
       <HabitStatus key={keyId} data-date={keyId} onClick={habitClickHandler}>

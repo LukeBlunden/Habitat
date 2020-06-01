@@ -38,10 +38,16 @@ const HabitsList = (props) => {
     : null;
 
   const today = new Date();
+  // console.log(today.getDate());
+  // today.setDate(today.getDate() - 1)
+  // console.log(today.getDate());
   const dateList = [];
   for (let i = 0; i < 5; i++) {
-    let keyId = `${today.getDate() - i}/${today.getMonth()}/${today.getFullYear()}`;
-    dateList.push(<p key={keyId} data-date={keyId}>{today.getDate() - i}</p>);
+    // today.setDate(today.getDate() - 1)
+    let tempDate = new Date();
+    tempDate.setDate(tempDate.getDate() - i)
+    let keyId = `${tempDate.getDate()}/${tempDate.getMonth() + 1}/${tempDate.getFullYear()}`;
+    dateList.push(<p key={keyId} data-date={keyId}>{tempDate.getDate()}</p>);
   }
 
   return (
