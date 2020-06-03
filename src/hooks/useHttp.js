@@ -31,7 +31,7 @@ const httpReducer = (state, action) => {
         error: action.error,
       };
     default:
-      return state;
+      throw new Error();
   }
 };
 
@@ -51,7 +51,6 @@ const useHttp = () => {
         return res.json();
       })
       .then((resData) => {
-        // console.log(extra)
         dispatchHttp({ type: "RESPONSE", data: resData, extra: extra });
       })
       .catch((err) => {

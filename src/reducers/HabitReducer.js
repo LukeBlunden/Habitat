@@ -7,7 +7,7 @@ export const HabitReducer = (state, action) => {
           id: key,
           name: action.habits[key].name,
           question: action.habits[key].question,
-          dates: [],
+          dates: action.habits[key].dates || [],
         });
       }
       return newHabits;
@@ -26,10 +26,21 @@ export const HabitReducer = (state, action) => {
     case "ADD_DATE":
       return state.map((habit) => {
         if (habit.id === action.id) {
-          habit.dates = [...habit.dates, action.date];
+          habit.dates[action.dateId] = action.date;
         }
         return habit;
       });
+    case "REMOVE_DATE":
+      return state.map(habit => {
+        if (habit.id === action.id) {
+          for (let key of Object.keys(habit.dates)) {
+            if (key === action.dateId) {
+              delete habit.dates[key];
+            }
+          }
+        }
+        return habit;
+      })
     default:
       return state;
   }

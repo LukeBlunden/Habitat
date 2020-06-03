@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 
 import HabitItem from "./HabitItem";
+import { HabitContext } from "../../../contexts/HabitContext";
 
 const HabitListContainer = styled.div`
   display: grid;
@@ -31,16 +32,13 @@ const HabitListContainer = styled.div`
 `;
 
 const HabitsList = (props) => {
-  const habits = props.habits
-    ? props.habits.map((habit) => (
-        <HabitItem key={habit.id} id={habit.id}>{habit.name}</HabitItem>
-      ))
-    : null;
+  const { habits, httpLoading } = useContext(HabitContext);
 
-  const today = new Date();
-  // console.log(today.getDate());
-  // today.setDate(today.getDate() - 1)
-  // console.log(today.getDate());
+  // habits ? props.habits.map((habit) => (
+  //       <HabitItem key={habit.id} id={habit.id}>{habit.name}</HabitItem>
+  //     ))
+  //   : null;
+
   const dateList = [];
   for (let i = 0; i < 5; i++) {
     // today.setDate(today.getDate() - 1)
@@ -55,7 +53,11 @@ const HabitsList = (props) => {
       <div className="dates">
         {dateList}
       </div>
-      <ul>{habits}</ul>
+      {/* <ul>{habits}</ul> */}
+      <ul>
+        {habits && habits.map(habit => <HabitItem key={habit.id} id={habit.id} dates={habit.dates}>{habit.name}</HabitItem>)}
+      </ul>
+      {httpLoading && <h5>Loading...</h5>}
     </HabitListContainer>
   );
 };

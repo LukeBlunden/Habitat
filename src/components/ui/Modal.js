@@ -58,29 +58,6 @@ const Modal = (props) => {
     e.preventDefault();
     const habit = { name: input.name, question: input.question };
     addHabitHandler(habit);
-    // fetch("https://habit-tracker-413fc.firebaseio.com/habits.json", {
-    //   method: "POST",
-    //   body: JSON.stringify(habit),
-    //   headers: {
-    //     "Content-type": "application/json",
-    //   },
-    // })
-    //   .then((res) => {
-    //     return res.json();
-    //   })
-    //   .then((resData) => {
-    //     dispatch({
-    //       type: "ADD_HABIT",
-    //       habit: {
-    //         id: resData.name,
-    //         name: input.name,
-    //         question: input.question,
-    //       },
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log("Something went wrong: " + err);
-    //   });
     props.closeModal();
   };
 

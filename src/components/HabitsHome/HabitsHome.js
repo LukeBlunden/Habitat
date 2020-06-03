@@ -1,12 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 
 import Navbar from "../ui/Navbar";
 import HabitsList from "./HabitsList/HabitsList";
 import Modal from "../ui/Modal";
-import { HabitContext } from "../../contexts/HabitContext";
 
 const HabitsHome = (props) => {
-  const { habits } = useContext(HabitContext);
+  // const { habits } = useContext(HabitContext);
   const [habitModal, setHabitModal] = useState(false);
 
   return (
@@ -23,7 +22,8 @@ const HabitsHome = (props) => {
         item2="="
         addHabit={() => setHabitModal(true)}
       />
-      <HabitsList habits={habits} />
+      {/* <HabitsList habits={habits} /> */}
+      <HabitsList />
     </React.Fragment>
   );
 };
