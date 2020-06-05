@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
 import { HabitContext } from "../../../contexts/HabitContext";
 import HabitStatus from "./HabitStatus";
 
@@ -28,28 +30,45 @@ const Item = styled.li`
   }
 `;
 
+const StyledLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  grid-column: 2 / span 6;
+  text-align: left;
+  padding-left: 10px;
+`;
+
 const Progress = styled.div`
   /* background-color: #CCCCCC; */
 `;
 
 const HabitItem = (props) => {
   const { removeHabitHandler } = useContext(HabitContext);
-  console.log("rerender habitItem")
   // Create arrays of incomplete habit status markers for each habit and each date
   const dateCheck = [];
   for (let i = 0; i < 5; i++) {
     let tempDate = new Date();
-    tempDate.setDate(tempDate.getDate() - i)
-    let keyId = `${tempDate.getDate()}/${tempDate.getMonth() + 1}/${tempDate.getFullYear()}`;
+    tempDate.setDate(tempDate.getDate() - i);
+    let keyId = `${tempDate.getDate()}/${
+      tempDate.getMonth() + 1
+    }/${tempDate.getFullYear()}`;
     dateCheck.push(
-      <HabitStatus key={keyId} dataDate={keyId} dates={props.dates} id={props.id} />
+      <HabitStatus
+        key={keyId}
+        dataDate={keyId}
+        dates={props.dates}
+        id={props.id}
+      />
     );
   }
 
   return (
     <Item>
       <Progress>O</Progress>
-      <div className="title" onClick={() => removeHabitHandler(props.id)} >{props.children}</div>
+      {/* <div className="title" onClick={() => removeHabitHandler(props.id)} >{props.children}</div> */}
+      <StyledLink to={`/habit/${props.id}`}>{props.children}</StyledLink>
       <div className="dateBox">{dateCheck}</div>
     </Item>
   );

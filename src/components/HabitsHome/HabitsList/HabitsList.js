@@ -10,7 +10,7 @@ const HabitListContainer = styled.div`
   grid-template-rows: auto;
   grid-template-areas: 
     /* repeat(7, ".") repeat(5, "dates"); */
-    ". . . . . . . date date date date date"
+    ". load load load load load load date date date date date"
     "list list list list list list list list list list list list ";
 
   background-color: #f5f5f5;
@@ -29,15 +29,17 @@ const HabitListContainer = styled.div`
   & ul {
     grid-area: list;
   }
+
+  & h5 {
+    grid-area: load;
+    align-self: center;
+    justify-self: left;
+    padding-left: 10px;
+  }
 `;
 
 const HabitsList = (props) => {
   const { habits, httpLoading } = useContext(HabitContext);
-
-  // habits ? props.habits.map((habit) => (
-  //       <HabitItem key={habit.id} id={habit.id}>{habit.name}</HabitItem>
-  //     ))
-  //   : null;
 
   const dateList = [];
   for (let i = 0; i < 5; i++) {

@@ -20,7 +20,7 @@ const HabitsHome = (props) => {
         title="Habits"
         item1="+"
         item2="="
-        addHabit={() => setHabitModal(true)}
+        item1Click={() => setHabitModal(true)}
       />
       {/* <HabitsList habits={habits} /> */}
       <HabitsList />

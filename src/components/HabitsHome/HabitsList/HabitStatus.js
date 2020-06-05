@@ -2,12 +2,15 @@ import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { HabitContext } from "../../../contexts/HabitContext";
 
-const HabitStatusContainer = styled.p`
+const HabitStatusContainer = styled.button`
+  display: inline-block;
   padding: 2px;
+  background-color: transparent;
+  border: none;
+  width: 20%;
 `;
 
 const SvgStyled = styled.svg`
-  /* fill: #eee; */
   width: 100%;
   height: 100%;
 
@@ -17,14 +20,14 @@ const SvgStyled = styled.svg`
 `;
 
 const SvgStyledComplete = styled(SvgStyled)`
-  fill: "#00ff00";
+  fill: "#50C878";
 `;
 
 const completeSvg = (
   <SvgStyledComplete
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 512 512"
-    fill="#00ff00"
+    fill="#50C878"
   >
     <path d="M256 60.3c-107.9 0-195.7 87.8-195.7 195.7 0 107.9 87.8 195.7 195.7 195.7 107.9 0 195.7-87.8 195.7-195.7C451.7 148.1 363.9 60.3 256 60.3zM256 420.8c-90.9 0-164.8-73.9-164.8-164.8 0-90.9 73.9-164.8 164.8-164.8 90.9 0 164.8 73.9 164.8 164.8C420.8 346.9 346.9 420.8 256 420.8z" />
     <path d="M348.6 174.4L223.2 302.1l-62.1-45c-7.9-5.7-18.9-3.9-24.6 3.9 -5.7 7.9-3.9 18.9 3.9 24.6l74.4 53.9c3.1 2.3 6.7 3.4 10.3 3.4 4.6 0 9.2-1.8 12.6-5.3l136-138.6c6.8-6.9 6.7-18.1-0.2-24.9C366.6 167.3 355.4 167.4 348.6 174.4z" />
@@ -45,7 +48,7 @@ const incompleteSvg = (
 const HabitStatus = (props) => {
   const [complete, setComplete] = useState(false);
   const [dateId, setDbId] = useState("");
-  const { addDateHandler, removeDateHandler } = useContext(
+  const { addDateHandler, removeDateHandler, httpLoading } = useContext(
     HabitContext
   );
 
@@ -62,12 +65,15 @@ const HabitStatus = (props) => {
   }, [props.dates, props.dataDate]);
 
   function habitClickHandler(e) {
-    complete ? removeDateHandler(props.id, dateId) : addDateHandler(props.dataDate, props.id)
+    complete
+      ? removeDateHandler(props.id, dateId)
+      : addDateHandler(props.dataDate, props.id);
     setComplete(!complete);
   }
 
+  // Make habit status' unclickable when httpLoading??
   return (
-    <HabitStatusContainer onClick={habitClickHandler}>
+    <HabitStatusContainer onClick={habitClickHandler} disabled={httpLoading}>
       {complete ? completeSvg : incompleteSvg}
     </HabitStatusContainer>
   );
