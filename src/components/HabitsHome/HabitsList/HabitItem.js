@@ -45,15 +45,18 @@ const Progress = styled.div`
 `;
 
 const HabitItem = (props) => {
-  const { removeHabitHandler } = useContext(HabitContext);
+  // const { removeHabitHandler } = useContext(HabitContext);
   // Create arrays of incomplete habit status markers for each habit and each date
   const dateCheck = [];
   for (let i = 0; i < 5; i++) {
     let tempDate = new Date();
     tempDate.setDate(tempDate.getDate() - i);
-    let keyId = `${tempDate.getDate()}/${
+    // let keyId = `${tempDate.getDate()}/${
+    //   tempDate.getMonth() + 1
+    // }/${tempDate.getFullYear()}`;
+    let keyId = `${tempDate.getFullYear()}-${
       tempDate.getMonth() + 1
-    }/${tempDate.getFullYear()}`;
+    }-${tempDate.getDate()}`;
     dateCheck.push(
       <HabitStatus
         key={keyId}
